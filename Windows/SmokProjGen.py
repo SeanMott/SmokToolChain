@@ -28,7 +28,7 @@ os.makedirs(progName + "/res/Audio", exist_ok= True)
 
 #writes main
 file = open(progName + "/src/main.cpp", "w+")
-file.write("//Engine\n#include <Smok/Core/Engine>\n\n//" + progName + """\n\n//Other\n\nint main(int args, char*argv[])
+file.write("//Engine\n#include <Smok\Core\Application.hpp>\n#include <Smok\Core\Engine.hpp>\n\n//" + progName + """\n\n//Other\n\nint main(int args, char*argv[])
 {
     Smok::Core::EngineCreateInfo engineInfo;
     Smok::Core::Application app;
@@ -43,6 +43,7 @@ file.close()
 file = open(progName + "/premake5.lua", "w+")
 file.write("""workspace \"""" + progName + """\"
     architecture "x86"
+    startproject \"""" + progName + """\"
 
     configurations
     {
@@ -51,13 +52,14 @@ file.write("""workspace \"""" + progName + """\"
         "Dist"
     }
 
+    include "../Library/Smok"
+
 project \"""" + progName + """\"
     kind "ConsoleApp"
     language "C++"
 
     targetdir ("bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}")
     objdir ("bin-obj/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}")
-
 
     files 
     {
@@ -70,10 +72,10 @@ project \"""" + progName + """\"
     includedirs
     {
         
-        "Library/Smok/Library/glm/glm",
-        "Library/Smok/Library/Glfix/Glfix/includes",
-        "Library/Smok/Library/ImGUI",
-        "Library/Smok/includes",
+        "../Library/Smok/Library/glm/glm",
+        "../Library/Smok/Library/Glfix/Glfix/includes",
+        "../Library/Smok/Library/ImGUI",
+        "../Library/Smok/Smok/includes",
         "src",
         
     }
